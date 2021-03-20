@@ -62,7 +62,7 @@ namespace NetAsyncSpider.Core
 
 		protected IServiceProvider ServiceProvider { get; }
 
-		private SimpleEngine SimpleEngine { get; }
+		private AsyncSpiderCoreEngine SimpleEngine { get; }
 
 		private ICommunicationMessage Message { get; }
 
@@ -76,7 +76,7 @@ namespace NetAsyncSpider.Core
 			Options = ServiceProvider.GetService<IOptions<SpiderOptions>>().Value;
 			_services = ServiceProvider.GetService<DependenceServices>(); ;
 			Scheduler = ServiceProvider.GetService<IScheduler>(); 
-			SimpleEngine = ServiceProvider.GetService<SimpleEngine>();
+			SimpleEngine = ServiceProvider.GetService<AsyncSpiderCoreEngine>();
 			Message = ServiceProvider.GetService<ICommunicationMessage>();
 		}
 

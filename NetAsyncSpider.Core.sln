@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{2DD5D4E7-3926-4BE0-AC5B-3069E6AFE7B4}"
 	ProjectSection(SolutionItems) = preProject
 		C:\Users\Administrator\Desktop\pay.jpg = C:\Users\Administrator\Desktop\pay.jpg
+		C:\Users\Administrator\Desktop\request.png = C:\Users\Administrator\Desktop\request.png
 	EndProjectSection
 EndProject
 Global

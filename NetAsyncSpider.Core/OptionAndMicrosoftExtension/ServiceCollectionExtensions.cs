@@ -117,7 +117,7 @@ namespace NetAsyncSpider.Core
                 var default_policy = Policy.Handle<Exception>().OrResult<IResponseParam>(x => x.IsError);
                 z.SetPolicyBuilder(PolicyNames.Default, default_policy);
             });
-            services.AddSingleton<SimpleEngine>();
+            services.AddSingleton<AsyncSpiderCoreEngine>();
             services.AddHostedService<TSpider>();
             var config = services.GetConfiguration();
             var s = config.GetSection("SpiderOptions");

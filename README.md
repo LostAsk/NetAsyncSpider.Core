@@ -17,6 +17,8 @@ NetAsyncSpider.Core 是一款轻量、高配置的、易扩展、强大的抓取
 
 QQ群：867954883(在线)
 </div>
+## 🚀 设计图
+> ![DESIGN](https://raw.githubusercontent.com/LostAsk/NetAsyncSpider.Core/master/img/request.png)
 
 
 ## 🚀 快速入门
@@ -117,6 +119,9 @@ QQ群：867954883(在线)
 ```
 参数配置可看:appsetting.json配置
 [View complete Codes](https://github.com/LostAsk/NetAsyncSpider.Core/blob/master/test/test/appsettings.json)
+![image](https://raw.githubusercontent.com/LostAsk/NetAsyncSpider.Core/master/img/g.gif)
+
+
 
 ## 💪 Wiki
 

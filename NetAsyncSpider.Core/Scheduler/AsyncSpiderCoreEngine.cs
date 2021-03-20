@@ -22,7 +22,7 @@ using NetAsyncSpider.Core.MessageQueue;
 
 namespace NetAsyncSpider.Core.Scheduler
 {
-    public class SimpleEngine : IDisposable
+    public class AsyncSpiderCoreEngine : IDisposable
     {
 
 
@@ -47,7 +47,7 @@ namespace NetAsyncSpider.Core.Scheduler
 		protected bool IsDistributed => CommunicationMessage.IsDistributed;
 
 
-		public SimpleEngine(IOptions<SpiderOptions> options, ILogger<BaseSpider> logger, ISingleHandler singleHandler,IServiceProvider serviceProvider) {
+		public AsyncSpiderCoreEngine(IOptions<SpiderOptions> options, ILogger<BaseSpider> logger, ISingleHandler singleHandler,IServiceProvider serviceProvider) {
 			ServiceProvider = serviceProvider;
 			Options = options.Value;
 			Logger = logger;
