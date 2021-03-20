@@ -125,7 +125,8 @@ QQ群：867954883(在线)
 ## 💕 捐赠
 
 > 超级感谢你的打赏。
-> [Alipay](https://github.com/LostAsk/NetAsyncSpider.Core/imgpay.jpg)
+> ![Alipay](https://raw.githubusercontent.com/LostAsk/NetAsyncSpider.Core/master/img/pay.jpg)
+
 
 ## 🗄 License (许可证)
 
