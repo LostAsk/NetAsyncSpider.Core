@@ -85,7 +85,7 @@ namespace NetAsyncSpider.Core
 		/// </summary>
 		/// <param name="stoppingToken"></param>
 		/// <returns></returns>
-		protected abstract Task InitializeAsync(CancellationToken stoppingToken = default);
+		public abstract Task InitializeAsync(CancellationToken stoppingToken = default);
 		/// <summary>
 		/// 主要作用是产生新的requestparam<br></br>
 		/// 解析可由中间件解析<br></br>
@@ -126,7 +126,7 @@ namespace NetAsyncSpider.Core
 			RequestParam.InternalSetDefault(x => x.Owner, SpiderId.Id);
 		
 			await SimpleEngine.InitializeAsync(this, Scheduler, Message, stoppingToken);
-			await InitializeAsync(stoppingToken);
+			//await InitializeAsync(stoppingToken);
 			await SimpleEngine.RunAsync(stoppingToken);
 
 

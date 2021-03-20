@@ -4,7 +4,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Authors>Lost_Ask</Authors>
-    <Description>SimpleSpider 是一款轻量、高配置的、易扩展、强大的抓取异步框架,支持 .NET Core 3+、.NET5+
+    <Description>NetAsyncSpider.Core 是一款轻量、高配置的、易扩展、强大的抓取异步框架,支持 .NET Core 3+、.NET5+
 
 - 支持 自定义的请求策略；
 
@@ -14,17 +14,21 @@
 
 - 支持 添加自定义的多个解析中间件；
 
-- 支持 分布式爬虫 （暂没实现,开发者可以实现ICommunicationMessage替换组件即可）；</Description>
-    <PackageProjectUrl>https://github.com/LostAsk/NetCoreSprider</PackageProjectUrl>
+- 支持 分布式爬虫;</Description>
+    <PackageProjectUrl>https://github.com/LostAsk/NetAsyncSpider.Core</PackageProjectUrl>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageLicenseFile></PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <RepositoryUrl>https://github.com/LostAsk/NetCoreSprider</RepositoryUrl>
+    <RepositoryUrl>https://github.com/LostAsk/NetAsyncSpider.Core</RepositoryUrl>
     <Copyright>Lost_Ask</Copyright>
     <PackageId>NetAsyncSpider.Core</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyName>NetAsyncSpider.Core</AssemblyName>
     <RootNamespace>NetAsyncSpider.Core</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\git\NetAsyncSpider\NetAsyncSpider\NetAsyncSpider.Core\bin\Release\netstandard2.1\NetAsyncSpider.Core.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

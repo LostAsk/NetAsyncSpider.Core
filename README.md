@@ -1,10 +1,14 @@
 <h1 align="center"> NetAsyncSpider.Core </h1>
-<div align="center">
+<div align="left" migartion>
 免责申明：本框架是为了帮助开发人员简化开发流程、提高开发效率，请勿使用此框架做任何违法国家法律的事情，使用者所做任何事情也与本框架的作者无关。
+<div align="center">
+[![Member project of .NET Core Community](https://img.shields.io/badge/member%20project%20of-NCC-9e20c9.svg)](https://github.com/dotnetcore)
+[![nuget](https://img.shields.io/nuget/v/FreeSql.svg?style=flat-square)](https://www.nuget.org/packages/NetAsyncSpider.Core) 
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/LostAsk/NetAsyncSpider.Core/blob/master/LICENSE.txt)
+</div>
+
 
 NetAsyncSpider.Core 是一款轻量、高配置的、易扩展、强大的抓取异步框架,支持 .NET Core 3+、.NET5+
-
-</div>
 - 支持 自定义的请求策略；
 - 支持 自定义的下载器；
 - 支持 添加自定义的多个请求中间件；
@@ -12,8 +16,11 @@ NetAsyncSpider.Core 是一款轻量、高配置的、易扩展、强大的抓取
 - 支持 分布式爬虫 （暂没实现,开发者可以实现ICommunicationMessage替换组件即可）；
 
 QQ群：867954883(在线)
-> dotnet add package NetAsyncSpider.Core
+</div>
+
+
 ## 🚀 快速入门
+> dotnet add package NetAsyncSpider.Core
 ```csharp
     /// <summary>
     /// 测试spider
@@ -106,4 +113,20 @@ QQ群：867954883(在线)
             ///运行
             await pHost.RunConsoleAsync();
         }
+	
 ```
+参数配置可看:appsetting.json配置
+[View complete Codes](https://github.com/LostAsk/NetAsyncSpider.Core/blob/master/test/test/appsettings.json)
+
+## 💪 Wiki
+
+
+
+## 💕 捐赠
+
+> 超级感谢你的打赏。
+> [Alipay](https://github.com/LostAsk/NetAsyncSpider.Core/imgpay.jpg)
+
+## 🗄 License (许可证)
+
+[MIT](LICENSE)

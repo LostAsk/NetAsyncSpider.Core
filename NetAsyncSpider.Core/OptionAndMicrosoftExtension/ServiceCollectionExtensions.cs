@@ -120,7 +120,7 @@ namespace NetAsyncSpider.Core
             services.AddSingleton<SimpleEngine>();
             services.AddHostedService<TSpider>();
             var config = services.GetConfiguration();
-            var s = config.GetSection("Options");
+            var s = config.GetSection("SpiderOptions");
             services.Configure<SpiderOptions>(s);
 
             //dynamic obj = config.GetExpandoObjectByAppsetting("Options:OtherInfo");

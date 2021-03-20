@@ -67,12 +67,13 @@ namespace NetAsyncSpider.Core.Scheduler
 		}
 
 		public async Task RunAsync(CancellationToken stoppingToken) {
-		
+
+			var init = BaseSpider.InitializeAsync(stoppingToken);
 			var consumer_task = RegisterConsumerAsync(BaseSpider, stoppingToken);
 			///辅助线程监听退出
 			var listen_task = ListenCancelTokenAsync(BaseSpider, stoppingToken);
 			var main_run_task = StartSchedulerAsync(BaseSpider, stoppingToken);
-			await Task.WhenAll(consumer_task, listen_task, main_run_task);
+			await Task.WhenAll(init,consumer_task, listen_task, main_run_task);
 
 		}
 

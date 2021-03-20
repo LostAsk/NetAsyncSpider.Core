@@ -71,7 +71,7 @@ namespace test
     /// </summary>
     public class TestSprider : BaseSpider
     {
-        public TestSprider(IServiceProvider serviceProvider) : base(serviceProvider)
+        public  TestSprider(IServiceProvider serviceProvider) : base(serviceProvider)
         {
 
         }
@@ -87,7 +87,7 @@ namespace test
             ///测试递归
             Console.WriteLine($"url :{responseParam.RequestParam.Uri} 第{responseParam.RequestParam.Depth}层节点");
             var x = responseParam.TargetUrl.Split("/")[^1..][0];
-            var tmp = int.Parse(x) + 2;
+            var tmp = int.Parse(x) + 10;
             var url = $"https://localhost:5001/weatherforecast/{tmp}";
             var k = responseParam.RequestParam.CloneSetUri(url);
             k.Method = HeaderNames.Head;
@@ -108,7 +108,7 @@ namespace test
         }
 
 
-        protected override async Task InitializeAsync(CancellationToken stoppingToken = default)
+        public override async Task InitializeAsync(CancellationToken stoppingToken = default)
         {
             ///默认超时为0
             RequestParam.SetDefault(x => x.Timeout, 0);
@@ -116,7 +116,7 @@ namespace test
             RequestParam.SetDefault(x => x.PolicyBuilderKey, "test");
             ///默认使用定义的下载器
             RequestParam.SetDefault(x => x.DownProvider,typeof(TestDownProvider));
-            var test = Enumerable.Range(0,2).Select(x => new RequestParam($"https://localhost:5001/weatherforecast/{x}") { }).ToList();
+            var test = Enumerable.Range(0,10).Select(x => new RequestParam($"https://localhost:5001/weatherforecast/{x}") { }).ToList();
             test[0].Properties.Add(RequestConstProperties.Proxy, "fff");//[] = "ffff";
             foreach (var i in test) {
                 ///第一次推送任务用这个方法
