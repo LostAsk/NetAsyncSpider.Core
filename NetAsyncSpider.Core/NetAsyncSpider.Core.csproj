@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Authors>Lost_Ask</Authors>
+    <Description>SimpleSpider 是一款轻量、高配置的、易扩展、强大的抓取异步框架,支持 .NET Core 3+、.NET5+
+
+- 支持 自定义的请求策略；
+
+- 支持 自定义的下载器；
+
+- 支持 添加自定义的多个请求中间件；
+
+- 支持 添加自定义的多个解析中间件；
+
+- 支持 分布式爬虫 （暂没实现,开发者可以实现ICommunicationMessage替换组件即可）；</Description>
+    <PackageProjectUrl>https://github.com/LostAsk/NetCoreSprider</PackageProjectUrl>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageLicenseFile></PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://github.com/LostAsk/NetCoreSprider</RepositoryUrl>
+    <Copyright>Lost_Ask</Copyright>
+    <PackageId>NetAsyncSpider.Core</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyName>NetAsyncSpider.Core</AssemblyName>
+    <RootNamespace>NetAsyncSpider.Core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DataFlow\DataFlowContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bert.RateLimiters" Version="1.0.15" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.31" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
+    <PackageReference Include="MessagePack" Version="2.2.85" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+    <PackageReference Include="murmurhash" Version="1.0.3" />
+    <!--<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />-->
+    <PackageReference Include="Polly" Version="7.2.1" />
+    <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Dataflow" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>
