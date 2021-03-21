@@ -22,7 +22,7 @@ using NetAsyncSpider.Core.MessageQueue;
 
 namespace NetAsyncSpider.Core.Scheduler
 {
-    public class AsyncSpiderCoreEngine : IDisposable
+    internal class AsyncSpiderCoreEngine : IDisposable
     {
 
 
