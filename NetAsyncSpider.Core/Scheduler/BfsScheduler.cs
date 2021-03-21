@@ -12,12 +12,12 @@ namespace NetAsyncSpider.Core.Scheduler
 	/// <summary>
 	/// 基于内存的广度优先调度(去重 URL)
 	/// </summary>
-	public class QueueDistinctBfsScheduler : SchedulerBase
+	public class BfsScheduler : SchedulerBase
 	{
 		private readonly List<IRequestParam> _requests =
 			new List<IRequestParam>();
 
-		public QueueDistinctBfsScheduler(IDuplicateRemover duplicateRemover, IHashAlgorithmService requestHasherm, IOptions<SpiderOptions> options, ILogger<BaseSpider> logger) :
+		public BfsScheduler(IDuplicateRemover duplicateRemover, IHashAlgorithmService requestHasherm, IOptions<SpiderOptions> options, ILogger<BaseSpider> logger) :
 			base(duplicateRemover, requestHasherm, options, logger)
 		{
 			//comparer = new AnonymousComparer<IRequestParam>((x, y) => { return y.Depth.CompareTo(x.Depth); });

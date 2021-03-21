@@ -42,12 +42,8 @@ namespace test
                 .CreateLogger();
 
 
-            ///使用TestSprider,
-            var pHost = Host.CreateDefaultBuilder().ConfigureDefaultSpiderBuilder<QueueDistinctDfsScheduler, TestSprider>((context, services) => {
-                ///AddRequestMiddlewareService注册刚才定义的中间件    
-                services.AddRequestMiddlewareService(typeof(TestRequestMiddleware));
-                ///AddItemPipelineService 注册刚才定义的管道中间件
-                services.AddItemPipelineService(typeof(TestItemPipeline));
+            ///使用DfsScheduler,TestSprider,
+            var pHost = Host.CreateDefaultBuilder().ConfigureDefaultSpiderBuilder<DfsScheduler, TestSprider>((context, services) => {
                 ///注册添加刚才定义的下载器
                 services.AddTransient<TestDownProvider>();
                 ///配置自定义策略
@@ -65,6 +61,9 @@ namespace test
 
         }
 
+        ///AddItemPipelineService 注册刚才定义的管道中间件
+        services.AddItemPipelineService(typeof(TestItemPipeline));
+       
 
     }
 }

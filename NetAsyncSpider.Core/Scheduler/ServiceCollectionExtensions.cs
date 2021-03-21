@@ -13,7 +13,7 @@ namespace NetAsyncSpider.Core.Scheduler
 			builder.ConfigureServices(x =>
 			{
 				x.TryAddSingleton<IDuplicateRemover, TDuplicateRemover>();
-				x.TryAddSingleton<IScheduler, QueueDistinctBfsScheduler>();
+				x.TryAddSingleton<IScheduler, BfsScheduler>();
 			});
 			return builder;
 		}

@@ -45,6 +45,9 @@ namespace NetAsyncSpider.Core
 		/// 下载中间件
 		/// </summary>
 		public List<string> DownloaderPipelines { get; set; } = new List<string>();
+		/// <summary>
+		/// 额外参数
+		/// </summary>
 		public dynamic Object { get;set; }
 	}
 }

@@ -11,12 +11,12 @@ namespace NetAsyncSpider.Core.Scheduler
 	/// <summary>
 	/// 基于内存的深度优先调度(去重 URL)
 	/// </summary>
-	public class QueueDistinctDfsScheduler : SchedulerBase
+	public class DfsScheduler : SchedulerBase
 	{
 		private readonly List<IRequestParam> _requests =
 			new List<IRequestParam>();
 		private AnonymousComparer<IRequestParam> comparer;
-		public QueueDistinctDfsScheduler(IDuplicateRemover duplicateRemover, IHashAlgorithmService requestHasherm,IOptions<SpiderOptions> options,ILogger<BaseSpider> logger) :
+		public DfsScheduler(IDuplicateRemover duplicateRemover, IHashAlgorithmService requestHasherm,IOptions<SpiderOptions> options,ILogger<BaseSpider> logger) :
 			base(duplicateRemover, requestHasherm, options,logger)
 		{
 			comparer = new AnonymousComparer<IRequestParam>((x, y) => { return y.Depth.CompareTo(x.Depth); });

@@ -19,6 +19,7 @@ NetAsyncSpider.Core 是一款轻量、高配置的、易扩展、强大的抓取
 
 QQ群：867954883(在线)
 </div>
+
 ##  设计图
 > <img src="https://cdn.jsdelivr.net/gh/LostAsk/picgo/img/request.png" alt="DESIGN" style="zoom: 67%;" />
 
@@ -103,7 +104,7 @@ QQ群：867954883(在线)
 
 
             ///使用TestSprider,
-            var pHost = Host.CreateDefaultBuilder().ConfigureDefaultSpiderBuilder<QueueDistinctDfsScheduler, TestSprider>((context, services) => {
+            var pHost = Host.CreateDefaultBuilder().ConfigureDefaultSpiderBuilder<DfsScheduler, TestSprider>((context, services) => {
                 ///配置自定义策略
                 services.Configure<CrawlerPolicyBuilderOption>(x =>
                 {
@@ -170,6 +171,9 @@ QQ群：867954883(在线)
 > 超级感谢你的打赏。
 
 ![AliPay](https://cdn.jsdelivr.net/gh/LostAsk/picgo/img/pay.jpg)
+
+
+
 
 
 

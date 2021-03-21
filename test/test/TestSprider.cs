@@ -18,7 +18,7 @@ using NetAsyncSpider.Core.Scheduler;
 namespace test
 {
     /// <summary>
-    /// 测试请求中间件
+    /// 测试请求中间件(也可以继承BaseRequestsMiddleware，有一些常用简化方法)
     /// </summary>
     public class TestRequestMiddleware : IRequestMiddleware
     {
@@ -28,7 +28,6 @@ namespace test
         {
             
         }
-
         public Task InitializeAsync(IServiceProvider serviceProvider)
         {
             Console.WriteLine($"{ProviderName}正在InitializeAsync");
@@ -75,13 +74,7 @@ namespace test
         {
 
         }
-        /// <summary>
-		/// 主要作用是产生新的requestparam<br></br>
-		/// 解析可由中间件解析<br></br>
-		/// 或者在这里解析,放到参数IResponseParam,中间件获取解析对象进行操作
-		/// </summary>
-		/// <param name="responseParam"></param>
-		/// <returns></returns> 
+
         public override async Task ParseAsync(IResponseParam responseParam)
         {
             ///测试递归
@@ -94,14 +87,6 @@ namespace test
             ///推送任务
             await Scheduler.EnqueueAsync(k, responseParam);
         }
-        /// <summary>
-		/// 请求预处理<br></br>
-		/// 可设置每个请求之前的时间间隔防止太快<br></br>
-		/// 由于httpclientfactory要预设置<br></br>
-		/// 所以通过设置IRequestParam.ClientKey="xxx"找到对应的httpclient
-		/// </summary>
-		/// <param name="requestParam"></param>
-		/// <returns></returns>
         public override Task PreRequest(IRequestParam requestParam)
         {
             return Task.CompletedTask;
@@ -110,14 +95,22 @@ namespace test
 
         public override async Task InitializeAsync(CancellationToken stoppingToken = default)
         {
-            ///默认超时为0
-            RequestParam.SetDefault(x => x.Timeout, 0);
-            ///默认使用刚才注册的定义策略
-            RequestParam.SetDefault(x => x.PolicyBuilderKey, "test");
             ///默认使用定义的下载器
             RequestParam.SetDefault(x => x.DownProvider,typeof(TestDownProvider));
-            var test = Enumerable.Range(0,10).Select(x => new RequestParam($"https://localhost:5001/weatherforecast/{x}") { }).ToList();
-            test[0].Properties.Add(RequestConstProperties.Proxy, "fff");//[] = "ffff";
+            var test1 = new RequestParam($"https://localhost:5001/weatherforecast/1")
+            {
+                Timeout = 0,
+                ///默认使用刚才注册的定义策略
+                PolicyBuilderKey = "test",
+            };
+            test1.SetDownProvider<TestDownProvider>();
+
+            var test = Enumerable.Range(0,10).Select(x => new RequestParam($"https://localhost:5001/weatherforecast/{x}") { 
+                Timeout=0,
+                ///默认使用刚才注册的定义策略
+                PolicyBuilderKey="test",
+            }).ToList();
+            test[0].Properties.Add(RequestConstProperties.Proxy, "fff");
             foreach (var i in test) {
                 ///第一次推送任务用这个方法
                 await Scheduler.FirstEnqueueAsync(i, null, null);

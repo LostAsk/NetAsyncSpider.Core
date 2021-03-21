@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Compile Remove="DataFlow\DataFlowContext.cs" />
+    <Compile Remove="ItemPipeline\DataFlowContext.cs" />
   </ItemGroup>
 
   <ItemGroup>
