@@ -9,12 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test\test.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetAsyncSpider.MessageQueue", "NetAsyncSpider.MiddlewareMessageQueue\NetAsyncSpider.MessageQueue.csproj", "{CE17C3FA-AB3B-48E1-805D-A6F5975360A4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{2DD5D4E7-3926-4BE0-AC5B-3069E6AFE7B4}"
-	ProjectSection(SolutionItems) = preProject
-		C:\Users\Administrator\Desktop\pay.jpg = C:\Users\Administrator\Desktop\pay.jpg
-		C:\Users\Administrator\Desktop\request.png = C:\Users\Administrator\Desktop\request.png
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -2,9 +2,11 @@
 <div align="left" migartion>
 免责申明：本框架是为了帮助开发人员简化开发流程、提高开发效率，请勿使用此框架做任何违法国家法律的事情，使用者所做任何事情也与本框架的作者无关。
 <div align="center">
-[![Member project of .NET Core Community](https://img.shields.io/badge/member%20project%20of-NCC-9e20c9.svg)](https://github.com/dotnetcore)
+
+[![Member project of .NET Core Community](https://img.shields.io/badge/member project of-NCC-9e20c9.svg)](https://github.com/dotnetcore)
 [![nuget](https://img.shields.io/nuget/v/FreeSql.svg?style=flat-square)](https://www.nuget.org/packages/NetAsyncSpider.Core) 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/LostAsk/NetAsyncSpider.Core/blob/master/LICENSE.txt)
+
 </div>
 
 
@@ -13,12 +15,12 @@ NetAsyncSpider.Core 是一款轻量、高配置的、易扩展、强大的抓取
 - 支持 自定义的下载器；
 - 支持 添加自定义的多个请求中间件；
 - 支持 添加自定义的多个解析中间件；
-- 支持 分布式爬虫 （暂没实现,开发者可以实现ICommunicationMessage替换组件即可）；
+- 支持 分布式爬虫；
 
 QQ群：867954883(在线)
 </div>
-## 🚀 设计图
-> ![DESIGN](https://raw.githubusercontent.com/LostAsk/NetAsyncSpider.Core/master/img/request.png)
+##  设计图
+> <img src="https://cdn.jsdelivr.net/gh/LostAsk/picgo/img/request.png" alt="DESIGN" style="zoom: 67%;" />
 
 
 ## 🚀 快速入门
@@ -119,20 +121,57 @@ QQ群：867954883(在线)
 ```
 参数配置可看:appsetting.json配置
 [View complete Codes](https://github.com/LostAsk/NetAsyncSpider.Core/blob/master/test/test/appsettings.json)
-![image](https://raw.githubusercontent.com/LostAsk/NetAsyncSpider.Core/master/img/g.gif)
+
+```json
+{
+
+  "SpiderOptions": {
+
+    "Depth": 4,
+    "RetriedTimes": 0,
+    "EmptySleepTime": 10,
+    "Speed": 20,
+    "Delay": 0,
+    "Batch": 5,
+    //管道中间件配置
+    "ItemPipelines": [ "ConsoleItemPipeline" ],
+    //下载中间件配置
+    "DownloaderPipelines": [ "TestRequestMiddleware" ],
+    //额外参数
+    "OtherInfo": {
+      "a": "b",
+      "c": 1,
+      "d": "f",
+      "e": null,
+      "ff": [ 1, 2, 3, 4 ],
+      "f": {
+        "ss": "333"
+      }
+    }
+  },
+  ///爬虫id
+  "SPIDER_ID": "asdf",
+  //爬虫名称
+  "SPIDER_NAME": "ggg"
+
+}
+```
 
 
 
-## 💪 Wiki
+## 💪 文档
+
+[文档]: 
 
 
 
 ## 💕 捐赠
 
 > 超级感谢你的打赏。
-> ![Alipay](https://raw.githubusercontent.com/LostAsk/NetAsyncSpider.Core/master/img/pay.jpg)
+
+![AliPay](https://cdn.jsdelivr.net/gh/LostAsk/picgo/img/pay.jpg)
+
 
 
 ## 🗄 License (许可证)
-
 [MIT](LICENSE)
