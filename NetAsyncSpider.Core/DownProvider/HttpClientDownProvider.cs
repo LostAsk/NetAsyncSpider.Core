@@ -92,9 +92,9 @@ namespace NetAsyncSpider.Core.DownProvider
             var encoding = Encoding.GetEncoding(requestParam.Encoding);
            
             var httpmessage = new HttpRequestMessage(new HttpMethod(method), requestParam.Uri);
-            RequstsHelper.UpdateRequestHeader(httpmessage.Headers, requestParam.Headers);
+          
             CreateCookieHeader(httpmessage.Headers, requestParam.UserCookie);
-
+            RequstsHelper.UpdateRequestHeader(httpmessage.Headers, requestParam.Headers);
             httpmessage.Content = CreateContent(requestParam);
             return httpmessage;
         }
@@ -185,7 +185,7 @@ namespace NetAsyncSpider.Core.DownProvider
                 value = string.Join(";", tmpheadersdic.Select(x => x.Key + "=" + x.Value));
 
             }
-            if (!string.IsNullOrWhiteSpace("cookie")) tmpheaders.Add("cookie", value);
+            tmpheaders.Add("cookie", value);
             return value;
         }
 
