@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test\test.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetAsyncSpider.MessageQueue", "NetAsyncSpider.MiddlewareMessageQueue\NetAsyncSpider.MessageQueue.csproj", "{CE17C3FA-AB3B-48E1-805D-A6F5975360A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAsyncSpider.Core.RequestPipelineExtend", "NetAsyncSpider.Core.RequestPipelineExtend\NetAsyncSpider.Core.RequestPipelineExtend.csproj", "{045CF6FC-3744-4DF7-938F-7CE276D7A61C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CE17C3FA-AB3B-48E1-805D-A6F5975360A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE17C3FA-AB3B-48E1-805D-A6F5975360A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE17C3FA-AB3B-48E1-805D-A6F5975360A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{045CF6FC-3744-4DF7-938F-7CE276D7A61C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{045CF6FC-3744-4DF7-938F-7CE276D7A61C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{045CF6FC-3744-4DF7-938F-7CE276D7A61C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{045CF6FC-3744-4DF7-938F-7CE276D7A61C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

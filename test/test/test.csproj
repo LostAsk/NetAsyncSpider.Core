@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\NetAsyncSpider.Core.RequestPipelineExtend\NetAsyncSpider.Core.RequestPipelineExtend.csproj" />
     <ProjectReference Include="..\..\NetAsyncSpider.Core\NetAsyncSpider.Core.csproj" />
   </ItemGroup>
 

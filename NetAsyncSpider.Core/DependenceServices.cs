@@ -6,7 +6,10 @@ using NetAsyncSpider.Core.Scheduler;
 using Microsoft.Extensions.Options;
 using NetAsyncSpider.Core;
 using NetAsyncSpider.Core.Untils;
-
+using System.Dynamic;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 namespace NetAsyncSpider.Core
 {
 	public class DependenceServices : IDisposable
@@ -26,10 +29,10 @@ namespace NetAsyncSpider.Core
 			HostBuilderContext = builderContext;
 			Configuration = configuration;
 			/// ×¢²á¶¯Ì¬Ñ¡Ïî
-            dynamic obj = Configuration.GetExpandoObjectByAppsetting("SpiderOptions:OtherInfo");
+			dynamic obj = Configuration.GetExpandoObjectByAppsetting("SpiderOptions:OtherInfo");
             if (obj != null)
             {
-				options.Value.Object = obj.SpiderOptions.OtherInfo;
+				options.Value.Object =JObject.FromObject(obj.SpiderOptions.OtherInfo);
             }
         }
 

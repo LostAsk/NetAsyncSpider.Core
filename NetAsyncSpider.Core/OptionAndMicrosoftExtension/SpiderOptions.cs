@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 namespace NetAsyncSpider.Core
 {
 	/// <summary>
@@ -48,6 +51,6 @@ namespace NetAsyncSpider.Core
 		/// <summary>
 		/// 额外参数
 		/// </summary>
-		public dynamic Object { get;set; }
+		public JObject Object { get;set; }
 	}
 }

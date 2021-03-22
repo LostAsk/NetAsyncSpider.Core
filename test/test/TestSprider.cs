@@ -105,7 +105,7 @@ namespace test
             };
             test1.SetDownProvider<TestDownProvider>();
 
-            var test = Enumerable.Range(0,10).Select(x => new RequestParam($"https://localhost:5001/weatherforecast/{x}") { 
+            var test = Enumerable.Range(0,2).Select(x => new RequestParam($"https://localhost:5001/weatherforecast/{x}") { 
                 Timeout=0,
                 ///默认使用刚才注册的定义策略
                 PolicyBuilderKey="test",

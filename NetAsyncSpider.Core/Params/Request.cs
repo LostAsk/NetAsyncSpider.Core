@@ -65,10 +65,10 @@ namespace NetAsyncSpider.Core
         public long Timestamp=> Properties[RequestConstProperties.Timestamp];
         public int RequestedTimes => Properties[RequestConstProperties.RequestedTimes];
 
-        
-        public Dictionary<string, string> Headers { get; set ; }
 
-        public Dictionary<string, object> PostData { get; set; }
+        public Dictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
+
+        public Dictionary<string, object> PostData { get; set; } = new Dictionary<string, object>();
         public string Json { get; set; }
         public List<UploadFile> Files { get; set; }
         public Dictionary<string, string> UserCookie { get; set; } = new Dictionary<string, string>();

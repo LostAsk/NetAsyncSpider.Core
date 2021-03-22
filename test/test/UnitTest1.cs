@@ -19,6 +19,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using NetAsyncSpider.Core.RequestPipelineExtend;
 namespace test
 {
     public class Program
@@ -44,6 +45,11 @@ namespace test
 
             ///使用DfsScheduler,TestSprider,
             var pHost = Host.CreateDefaultBuilder().ConfigureDefaultSpiderBuilder<DfsScheduler, TestSprider>((context, services) => {
+
+                ///AddItemPipelineService 注册刚才定义的管道中间件
+                services.AddItemPipelineService(typeof(TestItemPipeline));
+                ///注册刚才的随机头中间件
+                services.AddRequestMiddlewareService(typeof(RandomRequestMiddleware));
                 ///注册添加刚才定义的下载器
                 services.AddTransient<TestDownProvider>();
                 ///配置自定义策略
@@ -61,8 +67,6 @@ namespace test
 
         }
 
-        ///AddItemPipelineService 注册刚才定义的管道中间件
-        services.AddItemPipelineService(typeof(TestItemPipeline));
        
 
     }
