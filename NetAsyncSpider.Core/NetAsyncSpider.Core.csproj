@@ -25,6 +25,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyName>NetAsyncSpider.Core</AssemblyName>
     <RootNamespace>NetAsyncSpider.Core</RootNamespace>
+    <Version>1.0.4</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
