@@ -114,7 +114,7 @@ namespace NetAsyncSpider.Core
             services.TryAddEnumerable(servicedescript);
             services.Configure<CrawlerPolicyBuilderOption>((z) =>
             {
-                var default_policy = Policy.Handle<Exception>().OrResult<IResponseParam>(x => x.IsError);
+                var default_policy = Policy.Handle<Exception>().OrResult<ResponseParam>(x => x.IsError);
                 z.SetPolicyBuilder(PolicyNames.Default, default_policy);
             });
             services.AddSingleton<AsyncSpiderCoreEngine>();

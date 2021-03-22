@@ -44,12 +44,12 @@ namespace test
 
 
             ///使用DfsScheduler,TestSprider,
-            var pHost = Host.CreateDefaultBuilder().ConfigureDefaultSpiderBuilder<DfsScheduler, TestSprider>((context, services) => {
+            var pHost = Host.CreateDefaultBuilder().ConfigureDefaultSpiderBuilder<DfsScheduler, cookietest_spider>((context, services) => {
 
                 ///AddItemPipelineService 注册刚才定义的管道中间件
                 services.AddItemPipelineService(typeof(TestItemPipeline));
                 ///注册刚才的随机头中间件
-                services.AddRequestMiddlewareService(typeof(RandomRequestMiddleware));
+                services.AddRequestMiddlewareService(typeof(RandomRequestHeaderMiddleware),typeof(CookieRequestMiddleware));
                 ///注册添加刚才定义的下载器
                 services.AddTransient<TestDownProvider>();
                 ///配置自定义策略
