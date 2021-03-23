@@ -103,7 +103,7 @@ namespace NetAsyncSpider.Core.Untils
         public static IEnumerable<KeyValuePair<string, string>> DicToEnumerableKeyPairEncode(Dictionary<string, Object> param, Encoding encoding=null)
         {
             var encodpar = string.Empty;
-            if (param == null) { throw new Exception("param不能为空"); }
+            if (param == null) { throw new System.Exception("param不能为空"); }
             var encode = encoding ?? Encoding.UTF8;
             List<KeyValuePair<String, string>> pars = new List<KeyValuePair<String, string>>();
             foreach (KeyValuePair<String, Object> par in param)
@@ -121,7 +121,7 @@ namespace NetAsyncSpider.Core.Untils
                 }
                 else
                 {
-                    throw new Exception("目前值只接受值String|IEnumerable<String>的字典");
+                    throw new System.Exception("目前值只接受值String|IEnumerable<String>的字典");
                 }
 
             }
@@ -137,7 +137,7 @@ namespace NetAsyncSpider.Core.Untils
         public static IEnumerable<KeyValuePair<string, string>> DicToEnumerableKeyPair(Dictionary<string, Object> param)
         {
             var encodpar = string.Empty;
-            if (param == null) { throw new Exception("param不能为空"); }
+            if (param == null) { throw new System.Exception("param不能为空"); }
             List<KeyValuePair<String, string>> pars = new List<KeyValuePair<String, string>>();
             foreach (KeyValuePair<String, Object> par in param)
             {
@@ -154,7 +154,7 @@ namespace NetAsyncSpider.Core.Untils
                 }
                 else
                 {
-                    throw new Exception("目前值只接受值String|IEnumerable<String>的字典");
+                    throw new System.Exception("目前值只接受值String|IEnumerable<String>的字典");
                 }
 
             }

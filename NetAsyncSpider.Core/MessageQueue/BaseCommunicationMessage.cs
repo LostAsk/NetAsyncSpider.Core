@@ -66,6 +66,13 @@ namespace NetAsyncSpider.Core.MessageQueue
 		}
 	}
 
+
+
+
+
+
+
+
 	public abstract class BaseCommunicationMessage<T> : ICommunicationMessage<T>
     {
 		private ConcurrentDictionary<string, Pipeline<T>> PipelineDic { get; }=
@@ -99,7 +106,7 @@ namespace NetAsyncSpider.Core.MessageQueue
         public virtual Task PublishAsync(string queue, T message)
         {
 			var p = PipelineDic.TryGetValue(queue,out var s);
-			if (p == false) throw new Exception($"队列标识{queue} 先注册RegisterConsumeAsync");
+			if (p == false) throw new System.Exception($"队列标识{queue} 先注册RegisterConsumeAsync");
 			s.SendMessage(message);
 			return Task.CompletedTask;
 		}

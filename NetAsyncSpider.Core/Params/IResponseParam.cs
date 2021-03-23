@@ -16,7 +16,7 @@ namespace NetAsyncSpider.Core
         /// <summary>
         /// 错误信息
         /// </summary>
-        Exception ErrorMessage { get;}
+        System.Exception ErrorMessage { get;}
         /// <summary>
         /// 是否出错
         /// </summary>

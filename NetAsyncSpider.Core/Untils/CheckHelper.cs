@@ -53,7 +53,7 @@ namespace NetAsyncSpider.Core.Untils
         /// <param name="assertion">要验证的断言。</param>
         /// <param name="message">异常消息。</param>
         private static void Require<TException>(bool assertion, string message)
-            where TException : Exception
+            where TException : System.Exception
         {
             if (assertion)
             {

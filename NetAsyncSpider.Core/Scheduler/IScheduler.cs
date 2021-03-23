@@ -31,7 +31,7 @@ namespace NetAsyncSpider.Core.Scheduler
 		/// </summary>
 		/// <param name="requests">请求</param>
 		/// <returns>入队个数</returns>
-		Task EnqueueAsync(IRequestParam requestParam,IResponseParam responseParam,Func<IServiceProvider, BaseSpider, IResponseParam, Task> parse_handler = null, Func<IgnoreRequestException, Task> ignore_handler = null);
+		Task EnqueueAsync(IRequestParam requestParam,IResponseParam responseParam,Func<IServiceProvider, BaseSpider, IResponseParam, Task> parse_handler = null, Func<Exception, Task> ignore_handler = null);
 
 
 		/// <summary>
@@ -39,7 +39,7 @@ namespace NetAsyncSpider.Core.Scheduler
 		/// </summary>
 		/// <param name="requests">请求</param>
 		/// <returns>入队个数</returns>
-	    Task FirstEnqueueAsync(IRequestParam requestParam, Func<IServiceProvider, BaseSpider, IResponseParam, Task> parse_handler=null, Func<IgnoreRequestException, Task> ignore_handler = null);
+	    Task FirstEnqueueAsync(IRequestParam requestParam, Func<IServiceProvider, BaseSpider, IResponseParam, Task> parse_handler=null, Func<Exception, Task> ignore_handler = null);
 		/// <summary>
 		/// 队列中的总请求个数
 		/// </summary>
@@ -50,7 +50,7 @@ namespace NetAsyncSpider.Core.Scheduler
 		/// </summary>
 		/// <param name="resquest_hash"></param>
 		/// <returns>(处理响应委托,IgnoreRequestException异常委托)</returns>
-		(Func<IServiceProvider,BaseSpider, IResponseParam, Task>,Func<IgnoreRequestException,Task>) GetPaseHanderByRequestsHash(string resquest_hash);
+		(Func<IServiceProvider,BaseSpider, IResponseParam, Task>,Func<Exception,Task>) GetPaseHanderByRequestsHash(string resquest_hash);
 
 		/// <summary>
 		/// 重置

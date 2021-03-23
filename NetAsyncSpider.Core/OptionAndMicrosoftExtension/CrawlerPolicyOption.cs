@@ -47,7 +47,7 @@ namespace NetAsyncSpider.Core
         {
             object policy_builder = null;
             TPolicyBuilders[typeof(TResult)].TryGetValue(key, out policy_builder);
-            if (policy_builder == null) { throw new Exception($"找不到该类型 {typeof(TResult).Name} 的{key} 策略配置"); };
+            if (policy_builder == null) { throw new System.Exception($"找不到该类型 {typeof(TResult).Name} 的{key} 策略配置"); };
             return policy_builder as PolicyBuilder<TResult>;
         }
         /// <summary>
@@ -60,7 +60,7 @@ namespace NetAsyncSpider.Core
         {
             PolicyBuilder s = null;
             PolicyBuilders.TryGetValue(key, out s);
-            if (s == null) { throw new Exception($"找不到该{key} 的策略配置"); };
+            if (s == null) { throw new System.Exception($"找不到该{key} 的策略配置"); };
             return s;
         }
     }

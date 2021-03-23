@@ -29,7 +29,7 @@ namespace NetAsyncSpider.Core.RequestPipeline
         /// IRequestParam 终止后面的IRequestMiddleware处理,放回调度器(一般做转发用的)<br></br>
         /// 注意如果返回IRequestParam,才会用到返回的委托；另外不要与传入的IRequestParam相同(即同一个对象)，否则死循环
         /// </returns>
-        Task<(IBaseReqParam, Func<IServiceProvider, BaseSpider, IResponseParam, Task>, Func<IgnoreRequestException, Task>)> ProcessRequestAsync(IRequestParam request, BaseSpider spider, ILogger logger);
+        Task<(IBaseReqParam, Func<IServiceProvider, BaseSpider, IResponseParam, Task>, Func<Exception, Task>)> ProcessRequestAsync(IRequestParam request, BaseSpider spider, ILogger logger);
         /// <summary>
         /// 响应处理(IResponseParam包含错误信息)
         /// </summary>

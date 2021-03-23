@@ -112,9 +112,9 @@ namespace NetAsyncSpider.Core
             services.AddTransient<DefaultRequestPolicyHander>();
             var servicedescript = ServiceDescriptor.Singleton(typeof(IItemPipeline), typeof(ConsoleItemPipeline));
             services.TryAddEnumerable(servicedescript);
-            services.Configure<CrawlerPolicyBuilderOption>((z) =>
+            services.Configure((CrawlerPolicyBuilderOption z) =>
             {
-                var default_policy = Policy.Handle<Exception>().OrResult<ResponseParam>(x => x.IsError);
+                var default_policy = Policy.Handle<System.Exception>().OrResult<ResponseParam>(x => x.IsError);
                 z.SetPolicyBuilder(PolicyNames.Default, default_policy);
             });
             services.AddSingleton<AsyncSpiderCoreEngine>();

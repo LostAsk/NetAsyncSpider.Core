@@ -49,6 +49,10 @@ namespace NetAsyncSpider.Core
 		/// </summary>
 		public List<string> DownloaderPipelines { get; set; } = new List<string>();
 		/// <summary>
+		/// Spider中间件
+		/// </summary>
+		public List<string> SpiderPipelines { get; set; }= new List<string>();
+		/// <summary>
 		/// 额外参数
 		/// </summary>
 		public JObject Object { get;set; }

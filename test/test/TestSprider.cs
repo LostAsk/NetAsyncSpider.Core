@@ -34,10 +34,10 @@ namespace test
             return Task.CompletedTask;
         }
 
-        public Task<(IBaseReqParam, Func<IServiceProvider, BaseSpider, IResponseParam, Task>, Func<IgnoreRequestException, Task>)> ProcessRequestAsync(IRequestParam request, BaseSpider spider, ILogger logger)
+        public Task<(IBaseReqParam, Func<IServiceProvider, BaseSpider, IResponseParam, Task>, Func<NetAsyncSpider.Core.Exception, Task>)> ProcessRequestAsync(IRequestParam request, BaseSpider spider, ILogger logger)
         {
             Console.WriteLine($"进入请求拦截");
-            return Task.FromResult(((IBaseReqParam)null, (Func<IServiceProvider, BaseSpider, IResponseParam, Task>)null,(Func<IgnoreRequestException, Task>)null));
+            return Task.FromResult(((IBaseReqParam)null, (Func<IServiceProvider, BaseSpider, IResponseParam, Task>)null,(Func<NetAsyncSpider.Core.Exception, Task>)null));
         }
 
         public Task<IRequestParam> ProcessResponseAsync(IRequestParam request, IResponseParam response, BaseSpider spider, ILogger logger)

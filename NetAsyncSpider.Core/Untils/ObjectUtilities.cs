@@ -21,7 +21,7 @@ namespace NetAsyncSpider.Core.Untils
 				{
 					(obj as IDisposable)?.Dispose();
 				}
-				catch (Exception)
+				catch (System.Exception)
 				{
 					// ignored
 				}
@@ -41,7 +41,7 @@ namespace NetAsyncSpider.Core.Untils
 				{
 					(obj as IDisposable)?.Dispose();
 				}
-				catch (Exception e)
+				catch (System.Exception e)
 				{
 					logger.LogWarning($"Dispose {obj} failed: {e}");
 				}
@@ -56,9 +56,9 @@ namespace NetAsyncSpider.Core.Untils
 					{
 						(ky.Value as IDisposable)?.Dispose();
 					}
-					catch (Exception e)
+					catch (System.Exception e)
 					{
-						Console.WriteLine($"Dispose {ky.Key} failed: {e}");
+                        Console.WriteLine($"Dispose {ky.Key} failed: {e}");
 					}
 				}
 				dic.Clear();

@@ -31,7 +31,7 @@ namespace NetAsyncSpider.Core
             Logger = logger;
         }
 
-        public event Func<IServiceProvider, Exception, IRequestParam, IResponseParam, Task> HandlerFailded;
+        public event Func<IServiceProvider, System.Exception, IRequestParam, IResponseParam, Task> HandlerFailded;
 
         /// <summary>
         /// 处理中间件dispose
@@ -72,7 +72,7 @@ namespace NetAsyncSpider.Core
         /// <param name="spider"></param>
         /// <param name="ignore_request_handler"></param>
         /// <returns></returns>
-        private async Task<(IRequestParam,bool)> DownloaderPipelinesHandlerAsync(IResponseParam responseParam, BaseSpider spider, ILogger logger, Func<IgnoreRequestException, Task> ignore_request_handler = null) {
+        private async Task<(IRequestParam,bool)> DownloaderPipelinesHandlerAsync(IResponseParam responseParam, BaseSpider spider, ILogger logger, Func<Exception, Task> ignore_request_handler = null) {
             var isthrow = false;
             if (SpiderOptions.DownloaderPipelines.Count == 0) return (null, isthrow);
             try
@@ -87,22 +87,19 @@ namespace NetAsyncSpider.Core
                 }
                 return (null, isthrow);
             }
-            catch (IgnoreRequestException e)
+            catch (Exception e)
             {
                 isthrow = true;
-                if(ignore_request_handler!=null)
+                if(ignore_request_handler != null)
                 await ignore_request_handler(e);
 
-            }
-            catch (Exception e) {
-                isthrow = true;
             }
             return (null, isthrow);
 
         }
 
 
-        public async Task ExcuteAsync(IRequestParam requestParam, BaseSpider spider,Func<IServiceProvider,BaseSpider, IResponseParam,Task> parseasync=null, Func<IgnoreRequestException, Task> ignore_request_handler = null, IResponseParam responseParam=null)
+        public async Task ExcuteAsync(IRequestParam requestParam, BaseSpider spider,Func<IServiceProvider,BaseSpider, IResponseParam,Task> parseasync=null, Func<Exception, Task> ignore_request_handler = null, IResponseParam responseParam=null)
         {
             IResponseParam response = responseParam;
             try
@@ -110,7 +107,9 @@ namespace NetAsyncSpider.Core
                 if (response == null) {
                     response = await GetResponseAsync(requestParam);
                 }
-                var down_handler = await DownloaderPipelinesHandlerAsync(response, spider,Logger, ignore_request_handler);
+
+
+                var down_handler = await DownloaderPipelinesHandlerAsync(response, spider, Logger, ignore_request_handler);
                 if (down_handler.Item2) {
                     Logger.LogWarning($"Id:{requestParam.Owner} Url:{requestParam.Uri} 下载中间件出错");
                     return;
@@ -144,7 +143,7 @@ namespace NetAsyncSpider.Core
                 //await Scheduler?.EnqueueAsync(list);
                 Logger.LogDebug($"Id:{response.RequestParam.Owner} Url:{response.RequestParam.Uri} 解析完成");
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 Logger.LogError($"Id:{requestParam.Owner} Url:{requestParam.Uri} 错误{e.Message}");
                 if (HandlerFailded != null) await HandlerFailded(ServiceProvider, e, requestParam, response);

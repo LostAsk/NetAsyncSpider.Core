@@ -248,7 +248,7 @@ namespace NetAsyncSpider.Core
         public ResponseHeader ResponseHeaders { get; } = new ResponseHeader();
 
         public bool IsExceptionCause => ErrorMessage!=null;
-        public Exception ErrorMessage { get; set; }
+        public System.Exception ErrorMessage { get; set; }
 
         public bool IsError { get;  set; }
 

@@ -88,7 +88,7 @@ namespace NetAsyncSpider.Core.DownProvider
         {
             var s = _hashBodyMethods.TryGetValue(requestParam.Method.ToUpper(), out var method);
 
-            if (!s) { throw new Exception($"{requestParam.Uri}的请求方式出错啦:Method为{requestParam.Method}"); }
+            if (!s) { throw new System.Exception($"{requestParam.Uri}的请求方式出错啦:Method为{requestParam.Method}"); }
             var encoding = Encoding.GetEncoding(requestParam.Encoding);
            
             var httpmessage = new HttpRequestMessage(new HttpMethod(method), requestParam.Uri);

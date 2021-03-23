@@ -23,7 +23,7 @@ namespace NetAsyncSpider.Core.Scheduler
 
 		protected ConcurrentDictionary<string, Func<IServiceProvider, BaseSpider, IResponseParam, Task>> ParseHandler { get; } = new ConcurrentDictionary<string, Func<IServiceProvider, BaseSpider, IResponseParam, Task>>();
 
-		protected ConcurrentDictionary<string, Func<IgnoreRequestException,Task>> IgnoreRequestHandler { get; } = new ConcurrentDictionary<string, Func<IgnoreRequestException, Task>>();
+		protected ConcurrentDictionary<string, Func<Exception,Task>> IgnoreRequestHandler { get; } = new ConcurrentDictionary<string, Func<Exception, Task>>();
 
         private SpinLock _spinLock;
 		private readonly IHashAlgorithmService _requestHasher;
@@ -111,7 +111,7 @@ namespace NetAsyncSpider.Core.Scheduler
 				}
 			}
 		}
-		public async Task EnqueueAsync(IRequestParam request, IResponseParam responseParam, Func<IServiceProvider, BaseSpider, IResponseParam, Task> parse_handler = null, Func<IgnoreRequestException, Task> ignore_handler = null)
+		public async Task EnqueueAsync(IRequestParam request, IResponseParam responseParam, Func<IServiceProvider, BaseSpider, IResponseParam, Task> parse_handler = null, Func<Exception, Task> ignore_handler = null)
 		{
 
 			var encoding = Encoding.GetEncoding(request.Encoding);
@@ -140,17 +140,17 @@ namespace NetAsyncSpider.Core.Scheduler
 
 		}
 
-		public async Task FirstEnqueueAsync(IRequestParam requestParam, Func<IServiceProvider, BaseSpider, IResponseParam, Task> parse_handler = null, Func<IgnoreRequestException, Task> ignore_handler = null)
+		public async Task FirstEnqueueAsync(IRequestParam requestParam, Func<IServiceProvider, BaseSpider, IResponseParam, Task> parse_handler = null, Func<Exception, Task> ignore_handler = null)
 		{
 			 requestParam.Properties[RequestConstProperties.Depth] = 0;
 			 await EnqueueAsync(requestParam, null,parse_handler,ignore_handler);
 		}
 
-        public (Func<IServiceProvider, BaseSpider, IResponseParam, Task>,Func<IgnoreRequestException, Task>) GetPaseHanderByRequestsHash(string resquest_hash)
+        public (Func<IServiceProvider, BaseSpider, IResponseParam, Task>,Func<Exception, Task>) GetPaseHanderByRequestsHash(string resquest_hash)
         {
 			Func<IServiceProvider, BaseSpider, IResponseParam, Task> item1 = null;
 			ParseHandler.TryGetValue(resquest_hash, out item1);
-			Func<IgnoreRequestException, Task> item2 = null;
+			Func<Exception, Task> item2 = null;
 			IgnoreRequestHandler.TryGetValue(resquest_hash,out item2);
 			return (item1, item2);
         }

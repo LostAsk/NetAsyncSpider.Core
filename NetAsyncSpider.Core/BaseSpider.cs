@@ -54,7 +54,7 @@ namespace NetAsyncSpider.Core
 		/// <summary>
 		/// 日志接口
 		/// </summary>
-		protected ILogger Logger { get; }
+		public ILogger Logger { get; }
 		/// <summary>
 		/// 调度
 		/// </summary>

@@ -21,7 +21,7 @@ namespace NetAsyncSpider.Core.RequestPipelineExtend
             return Task.CompletedTask;
         }
 
-        public override Task<(IBaseReqParam, Func<IServiceProvider, BaseSpider, IResponseParam, Task>, Func<IgnoreRequestException, Task>)> ProcessRequestAsync(IRequestParam request, BaseSpider spider, ILogger logger)
+        public override Task<(IBaseReqParam, Func<IServiceProvider, BaseSpider, IResponseParam, Task>, Func<Exception, Task>)> ProcessRequestAsync(IRequestParam request, BaseSpider spider, ILogger logger)
         {
             if (CookieDic.TryGetValue(request.Uri.Host, out var dic)) {
                 foreach (var kv in dic) {

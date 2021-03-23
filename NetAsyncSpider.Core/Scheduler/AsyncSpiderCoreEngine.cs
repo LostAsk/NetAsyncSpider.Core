@@ -19,10 +19,197 @@ using NetAsyncSpider.Core.ItemPipeline;
 using NetAsyncSpider.Core.RequestPipeline;
 using Microsoft.Extensions.DependencyInjection;
 using NetAsyncSpider.Core.MessageQueue;
+using NetAsyncSpider.Core.SpiderPipeline;
+using NetAsyncSpider.Core.PolicyHandler;
 
 namespace NetAsyncSpider.Core.Scheduler
 {
-    internal class AsyncSpiderCoreEngine : IDisposable
+
+	internal class CPipeline
+	{
+		protected IServiceProvider ServiceProvider { get; }
+		private IPropagatorBlock<IRequestParam, (IResponseParam, BaseSpider)> Request { get; set; }
+
+		private IPropagatorBlock<IResponseParam, IRequestParam> SpiderHandler { get; set; }
+
+		private SpiderOptions Options { get; }
+
+		private BaseSpider BaseSpider { get; set; }
+
+		private IScheduler Scheduler { get; set; }
+
+		private ILogger Logger => BaseSpider?.Logger;
+
+
+		private int CurrentNum { get; set; }
+
+		public CPipeline(IServiceProvider serviceProvider,IOptions<SpiderOptions> options)
+		{
+			ServiceProvider = serviceProvider;
+			Options = options.Value;
+		}
+
+		private async Task<IResponseParam> GetResponseAsync(IRequestParam requestParam)
+		{
+			var handler = requestParam.ResquestPolicyHanderProvider == null ? ServiceProvider.GetService<IResqustPolicyHander>() : (IResqustPolicyHander)ServiceProvider.GetService(requestParam.ResquestPolicyHanderProvider);
+			return await GetResponseAsync(requestParam, handler);
+		}
+
+		private async Task<IResponseParam> GetResponseAsync(IRequestParam requestParam, IResqustPolicyHander resqustPolicyHander)
+		{
+			using (resqustPolicyHander)
+			{
+				resqustPolicyHander.SetInput(requestParam.Hash, requestParam as RequestParam);
+				var reponse = await resqustPolicyHander.ExecuteAndCaptureAsync(requestParam.PolicyBuilderKey, Logger);
+				resqustPolicyHander.CrearInputByKey(requestParam.Hash);
+				return reponse;
+			}
+
+		}
+
+		/// <summary>
+		/// 请求处理
+		/// </summary>
+		/// <returns></returns>
+		private IPropagatorBlock<IRequestParam, (IResponseParam, BaseSpider)> RequestHandler()
+		{
+			async Task<IBaseReqParam> GetBaseReqParamAsync(IRequestParam x, BaseSpider s,IServiceProvider serviceProvider,SpiderOptions spiderOptions)
+			{
+				if (spiderOptions.DownloaderPipelines.Count == 0)
+				{
+					return x;
+				}
+				var dataflows = serviceProvider.GetServices<IRequestMiddleware>();
+				///按提供者排序
+				var pipe_s = spiderOptions.DownloaderPipelines.Select(x => dataflows.FirstOrDefault(z => z.ProviderName == x)).Where(x => x != null);
+				try
+				{
+					foreach (var pipe in pipe_s)
+					{
+						var result = await pipe.ProcessRequestAsync(x, BaseSpider, BaseSpider.Logger);
+						if (result.Item1 != null && result.Item1 is IResponseParam response)
+						{
+							response.RequestParam = x;
+
+							return response ;
+						}
+						else if (result.Item1 != null && result.Item1 is IRequestParam request_n)
+						{
+							await Scheduler.EnqueueAsync(request_n, null, result.Item2, result.Item3);
+							return null;
+						}
+					}
+					return x;
+				}
+				catch (System.Exception e)
+				{
+                    Logger.LogError($"Id:{x.Owner} Url:{x.Uri} 请求中间件 ProcessRequestAsync 错误{e.Message} 直接忽略该request");
+				}
+				return null;
+			};
+			
+			var bufferBlock = new BufferBlock<(IResponseParam, BaseSpider)>();
+			var actionBlock = new ActionBlock<IRequestParam>(async x =>
+			{
+				var base_req = await GetBaseReqParamAsync(x, BaseSpider, ServiceProvider, Options);
+				IResponseParam resonse = null;
+				if (base_req == null)
+				{
+					bufferBlock.Post((resonse, null));
+				}
+				else if (base_req is IRequestParam request)
+				{
+					resonse = await GetResponseAsync(request);
+					bufferBlock.Post((resonse, BaseSpider));
+				}
+				else if (base_req is IResponseParam response1) {
+					resonse = response1;
+					bufferBlock.Post((resonse, BaseSpider));
+				}
+			}, new ExecutionDataflowBlockOptions
+			{
+				MaxDegreeOfParallelism = CurrentNum
+			});
+			actionBlock.Completion.ContinueWith(_ =>
+				bufferBlock.Complete()
+			);
+			return DataflowBlock.Encapsulate(actionBlock, bufferBlock);
+		}
+
+		/// <summary>
+		/// 响应处理
+		/// </summary>
+		/// <returns></returns>
+		private IPropagatorBlock<(IResponseParam, BaseSpider), (IResponseParam, BaseSpider)> ResponseHandler()
+		{
+			Func<(IResponseParam, BaseSpider), Task> spider_mid_input = async (z) =>
+			{
+				var middlewares = ServiceProvider.GetServices<ISpiderMiddleware>();
+				bool is_error = false;
+				try
+				{
+					foreach (var middle in middlewares)
+					{
+						await middle.ProcessSpiderInputAsync(z.Item1, z.Item2);
+					}
+				}
+				catch (System.Exception e)
+				{
+					var callback = Scheduler.GetPaseHanderByRequestsHash(z.Item1.RequestParam.Hash);
+					if (callback.Item2 != null)
+					{
+						await callback.Item2(e);
+					}
+				}
+
+
+			};
+
+
+
+
+			var transformblock = new TransformBlock<(IResponseParam, BaseSpider), (IResponseParam, BaseSpider)>(async x =>
+			{
+				
+				
+
+
+			}, new ExecutionDataflowBlockOptions
+			{
+				MaxDegreeOfParallelism = CurrentNum
+			});
+			transformblock.Completion.ContinueWith(_ =>
+				 Logger.LogDebug($"_.IsCompletedSuccessfully")
+			);
+			return transformblock;
+		}
+
+
+
+
+
+		public void SendMessage(IRequestParam Message)
+		{
+			Request.Post(Message);
+		}
+
+		public void CompleteTask()
+		{
+			Request.Complete();
+		}
+
+		public Task Build(Func<IServiceProvider, T, Task> Consume_ActionBlock, int current_count = 10)
+		{
+			CurrentNum = current_count;
+			ConsumeActionBlock = Consume_ActionBlock;
+			SendBlock = RequestHandler();
+			SendBlock.Completion.ContinueWith(_ => {
+				Console.WriteLine("消息信号已Complete");
+			});
+			return SendBlock.Completion;
+		}
+	}
+	internal class AsyncSpiderCoreEngine : IDisposable
     {
 
 
@@ -180,7 +367,7 @@ namespace NetAsyncSpider.Core.Scheduler
 					{
 						response.RequestParam = request;
 						///推送消息
-						await PublishMessagesAsync(spider,response);
+						await PublishMessagesAsync(spider, response);
 					}
 					else if (result.Item1 != null && result.Item1 is IRequestParam request_n)
 					{
@@ -188,11 +375,11 @@ namespace NetAsyncSpider.Core.Scheduler
 					}
 				}
 				///推送消息
-				await PublishMessagesAsync(spider,request);
+				await PublishMessagesAsync(spider, request);
 			}
-			catch (Exception e)
+			catch (System.Exception e)
 			{
-				Logger.LogError($"Id:{request.Owner} Url:{request.Uri} 请求中间件 ProcessRequestAsync 错误{e.Message} 直接忽略该request");
+                Logger.LogError($"Id:{request.Owner} Url:{request.Uri} 请求中间件 ProcessRequestAsync 错误{e.Message} 直接忽略该request");
 			}
 
 		}

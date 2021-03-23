@@ -28,7 +28,7 @@ namespace NetAsyncSpider.Core.Untils
 					return abs.AbsoluteUri;
 				}
 			}
-			catch (Exception)
+			catch (System.Exception)
 			{
 				return uri;
 			}
